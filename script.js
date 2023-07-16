@@ -24,6 +24,11 @@ $(function () {
     // Set past, present or future class based on the current hour
     updateTimeBlockColors(timeBlock);
 
+    // Make button background color yellow when the text area is modified
+    timeBlock.find("textarea").on("input", function() {
+      timeBlock.find("button").addClass("saveBtnWarn");
+    });
+
     // Read saved schedule from localStorage and update text area
     const schedule = JSON.parse(localStorage.getItem("schedule")) || {};
     timeBlock.find("textarea").val(schedule[hour] || "");
@@ -34,6 +39,8 @@ $(function () {
       const schedule = JSON.parse(localStorage.getItem("schedule")) || {};
       schedule[hour] = timeBlock.find("textarea").val();
       localStorage.setItem("schedule", JSON.stringify(schedule));
+      // remove yellow background from button to indicate that the schedule has been saved
+      timeBlock.find("button").removeClass("saveBtnWarn");
     });
 
     // Add to page
