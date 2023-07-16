@@ -63,7 +63,6 @@ $(function () {
 
 // Update colors for time blocks. If no timeBlock is passed, update all on page.
 function updateTimeBlockColors(timeBlock){
-  console.log("Updating colors");
   if(timeBlock) {
     // Only proceed if the element has an hour-x ID. Uses short-circuiting to
     // prevent errors if the element doesn't have an ID.
