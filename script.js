@@ -59,37 +59,35 @@ $(function () {
     // Update the colors every minute
     setInterval(updateTimeBlockColors, 60000); // 60000 milliseconds = 1 minute
   }, timeUntilNextMinute)
-});
 
-// Update colors for time blocks. If no timeBlock is passed, update all on page.
-function updateTimeBlockColors(timeBlock){
-  if(timeBlock) {
-    // Only proceed if the element has an hour-x ID. Uses short-circuiting to
-    // prevent errors if the element doesn't have an ID.
-    if(!timeBlock.attr("id") || !timeBlock.attr("id").includes("hour-")) {
-      return;
-    }
-    // Get hour from ID
-    const hour = timeBlock.attr("id").split("-")[1];
-    if(currentHour() < hour) {
-      timeBlock.addClass("future");
-    } else if(currentHour() > hour) {
-      timeBlock.addClass("past");
+  // Update colors for time blocks. If no timeBlock is passed, update all on page.
+  function updateTimeBlockColors(timeBlock){
+    if(timeBlock) {
+      // Only proceed if the element has an hour-x ID. Uses short-circuiting to
+      // prevent errors if the element doesn't have an ID.
+      if(!timeBlock.attr("id") || !timeBlock.attr("id").includes("hour-")) {
+        return;
+      }
+      // Get hour from ID
+      const hour = timeBlock.attr("id").split("-")[1];
+      if(currentHour() < hour) {
+        timeBlock.addClass("future");
+      } else if(currentHour() > hour) {
+        timeBlock.addClass("past");
+      } else {
+        timeBlock.addClass("present");
+      }
     } else {
-      timeBlock.addClass("present");
-    }
-  } else {
-    // TODO: share timeBlockContainer const from earlier in code
-    const timeBlockContainer = $("#time-block-container");
-    for(timeBlock of timeBlockContainer.children()) {
-      // Call self with each found time block
-      updateTimeBlockColors($(timeBlock));
+      for(timeBlock of timeBlockContainer.children()) {
+        // Call self with each found time block
+        updateTimeBlockColors($(timeBlock));
+      }
     }
   }
-}
 
-// Proxy function for dayjs().hour() to make it easier to mock in tests
-function currentHour(){
-  // return 11; // for testing
-  return dayjs().hour();
-}
+  // Proxy function for dayjs().hour() to make it easier to mock in tests
+  function currentHour(){
+    // return 11; // for testing
+    return dayjs().hour();
+  }
+});
