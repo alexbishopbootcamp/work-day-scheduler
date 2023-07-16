@@ -71,9 +71,9 @@ function updateTimeBlockColors(timeBlock){
     }
     // Get hour from ID
     const hour = timeBlock.attr("id").split("-")[1];
-    if(dayjs().hour() < hour) {
+    if(currentHour() < hour) {
       timeBlock.addClass("future");
-    } else if(dayjs().hour() > hour) {
+    } else if(currentHour() > hour) {
       timeBlock.addClass("past");
     } else {
       timeBlock.addClass("present");
@@ -86,4 +86,10 @@ function updateTimeBlockColors(timeBlock){
       updateTimeBlockColors($(timeBlock));
     }
   }
+}
+
+// Proxy function for dayjs().hour() to make it easier to mock in tests
+function currentHour(){
+  // return 11; // for testing
+  return dayjs().hour();
 }
