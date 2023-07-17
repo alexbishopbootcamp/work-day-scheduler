@@ -1,6 +1,9 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
+// All variables and functions are scoped to this function to prevent them from
+// polluting the global namespace.
 $(function () {
   // Settings and consts
   const timeFormat = "h A"; // 12 hour time
