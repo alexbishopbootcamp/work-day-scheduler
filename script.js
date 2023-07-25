@@ -6,13 +6,22 @@
 // polluting the global namespace.
 $(function () {
   // Settings and consts
-  const timeFormat = "h A"; // 12 hour time
-  // const timeFormat = "H:00"; // 24 hour time
+  // const timeFormat = "h A"; // 12 hour time
+  const timeFormat = "H:00"; // 24 hour time
   const timeBlockTemplate = $("#time-block-template");
   const timeBlockContainer = $("#time-block-container");
-  // Range of hours to display in the schedule
-  const startHour = 9;
-  const endHour = 17;
+
+  // Set start and end hour for the schedule
+  let startHour = 9;
+  let endHour = 17;
+
+  // Check if "full" URL parameter is present
+  const urlParams = new URLSearchParams(window.location.search);
+  if(urlParams.has("full")) {
+    // Show all hours of the day
+    startHour = 0;
+    endHour = 24;
+  }
 
   // Populate schedule with time blocks
   for(let hour = startHour; hour <= endHour; hour++) {
