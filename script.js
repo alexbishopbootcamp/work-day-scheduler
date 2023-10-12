@@ -63,21 +63,8 @@ $(function () {
   const dayContainer = $("#currentDay");
   dayContainer.text(dayjs().format("dddd, MMMM D, YYYY"));
 
-  // Update colors every minute, at the start of each minute
-  // Calculate the time until the next minute starts
-  var now = new Date();
-  var timeUntilNextMinute = (60 - now.getSeconds()) * 1000; // Convert to milliseconds
-  // Add 1 second to ensure that the next minute has started
-  timeUntilNextMinute += 1000;
-
-  // Wait until the next minute starts
-  setTimeout(function() {
-    // Update the colors immediately when the minute starts
-    updateTimeBlockColors();
-
-    // Update the colors every minute
-    setInterval(updateTimeBlockColors, 60000); // 60000 milliseconds = 1 minute
-  }, timeUntilNextMinute)
+  // Update the colors every 10 seconds
+  setInterval(updateTimeBlockColors, 10000);
 
   // Update colors for time blocks. If no timeBlock is passed, update all on page.
   function updateTimeBlockColors(timeBlock){
