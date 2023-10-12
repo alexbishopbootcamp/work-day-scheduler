@@ -63,9 +63,6 @@ $(function () {
   const dayContainer = $("#currentDay");
   dayContainer.text(dayjs().format("dddd, MMMM D, YYYY"));
 
-  // Update the colors every 10 seconds
-  setInterval(updateTimeBlockColors, 10000);
-
   // Update colors for time blocks. If no timeBlock is passed, update all on page.
   function updateTimeBlockColors(timeBlock){
     if(timeBlock) {
@@ -90,6 +87,9 @@ $(function () {
       }
     }
   }
+
+  // Update the colors every 10 seconds
+  setInterval(updateTimeBlockColors, 10000);
 
   // Proxy function for dayjs().hour() to make it easier to mock in tests
   function currentHour(){
